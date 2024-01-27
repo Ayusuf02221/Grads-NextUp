@@ -1,0 +1,182 @@
+@import 'bootstrap';
+
+$primary-color: #007bff;
+$secondary-color: #6c757d;
+$success-color: #28a745;
+$error-color: #dc3545;
+$warning-color: #ffc107;
+$info-color: #17a2b8;
+$light-color: #f8f9fa;
+$dark-color: #343a40;
+
+$font-family-base: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+$heading-font-family: 'Open Sans', sans-serif;
+
+$border-radius-base: 4px;
+
+$breakpoint-xs: 320px;
+$breakpoint-sm: 480px;
+$breakpoint-md: 768px;
+$breakpoint-lg: 1024px;
+$breakpoint-xl: 1280px;
+
+@function pow($base, $exponent) {
+  $result: 1;
+  @if $exponent > 0 {
+    @for $i from 1 through $exponent {
+      $result: $result * $base;
+    }
+  } @else if $exponent < 0 {
+    @for $i from 1 through -$exponent {
+      $result: $result / $base;
+    }
+  }
+  @return $result;
+}
+
+@mixin transition($properties: all, $duration: 0.3s, $ease: ease) {
+  transition: $properties $duration $ease;
+}
+
+@mixin box-shadow($x: 0, $y: 4px, $blur: 8px, $color: rgba(0, 0, 0, 0.1)) {
+  box-shadow: $x $y $blur $color;
+}
+
+@mixin responsive-font($min-size, $max-size) {
+  font-size: $min-size;
+
+  @media (min-width: $breakpoint-sm) {
+    font-size: calc(#{$min-size} + (#{$max-size} - #{$min-size}) * ((100vw - #{$breakpoint-sm}) / (#{$breakpoint-lg} - #{$breakpoint-sm})));
+  }
+
+  @media (min-width: $breakpoint-lg) {
+    font-size: $max-size;
+  }
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: $font-family-base;
+  color: $dark-color;
+  margin: 0;
+  padding: 0;
+  font-size: 1rem;
+  line-height: 1.6;
+  @include transition(color 0.2s);
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: $heading-font-family;
+  margin-top: 0;
+  @include responsive-font(1.5rem, 3rem);
+}
+
+a {
+  color: $primary-color;
+  text-decoration: none;
+  &:hover {
+    text-decoration: underline;
+    @include transition(color 0.3s);
+  }
+}
+
+button {
+  @include transition(background-color 0.3s, transform 0.3s);
+  &:hover {
+    @include box-shadow(0, 6px, 12px, rgba(0, 0, 0, 0.15));
+    transform: translateY(-2px);
+  }
+  &:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba($primary-color, 0.5);
+  }
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 15px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  grid-gap: 20px;
+
+  @media (max-width: $breakpoint-lg) {
+    max-width: 960px;
+  }
+
+  @media (max-width: $breakpoint-md) {
+    max-width: 720px;
+  }
+
+  @media (max-width: $breakpoint-sm) {
+    max-width: 540px;
+  }
+}
+
+.text-center {
+  text-align: center;
+}
+
+.mb-1 {
+  margin-bottom: 0.25rem;
+}
+.mb-2 {
+  margin-bottom: 0.5rem;
+}
+.mb-3 {
+  margin-bottom: 1rem;
+}
+.mb-4 {
+  margin-bottom: 1.5rem;
+}
+.mb-5 {
+  margin-bottom: 3rem;
+}
+
+$scale-base: 1rem;
+$scale-ratio: 1.333;
+
+// Manually defined margin classes
+.mt-0 { margin-top: $scale-base * 1; }
+.mt-1 { margin-top: $scale-base * $scale-ratio; }
+.mt-2 { margin-top: $scale-base * $scale-ratio * $scale-ratio; }
+.mt-3 { margin-top: $scale-base * $scale-ratio * $scale-ratio * $scale-ratio; }
+.mt-4 { margin-top: $scale-base * $scale-ratio * $scale-ratio * $scale-ratio * $scale-ratio; }
+.mt-5 { margin-top: $scale-base * $scale-ratio * $scale-ratio * $scale-ratio * $scale-ratio * $scale-ratio; }
+
+.mb-0 { margin-bottom: $scale-base * 1; }
+.mb-1 { margin-bottom: $scale-base * $scale-ratio; }
+.mb-2 { margin-bottom: $scale-base * $scale-ratio * $scale-ratio; }
+.mb-3 { margin-bottom: $scale-base * $scale-ratio * $scale-ratio * $scale-ratio; }
+.mb-4 { margin-bottom: $scale-base * $scale-ratio * $scale-ratio * $scale-ratio * $scale-ratio; }
+.mb-5 { margin-bottom: $scale-base * $scale-ratio * $scale-ratio * $scale-ratio * $scale-ratio * $scale-ratio; }
+
+.ml-0 { margin-left: $scale-base * 1; }
+.ml-1 { margin-left: $scale-base * $scale-ratio; }
+.ml-2 { margin-left: $scale-base * $scale-ratio * $scale-ratio; }
+.ml-3 { margin-left: $scale-base * $scale-ratio * $scale-ratio * $scale-ratio; }
+.ml-4 { margin-left: $scale-base * $scale-ratio * $scale-ratio * $scale-ratio * $scale-ratio; }
+.ml-5 { margin-left: $scale-base * $scale-ratio * $scale-ratio * $scale-ratio * $scale-ratio * $scale-ratio; }
+
+.mr-0 { margin-right: $scale-base * 1; }
+.mr-1 { margin-right: $scale-base * $scale-ratio; }
+.mr-2 { margin-right: $scale-base * $scale-ratio * $scale-ratio; }
+.mr-3 { margin-right: $scale-base * $scale-ratio * $scale-ratio * $scale-ratio; }
+.mr-4 { margin-right: $scale-base * $scale-ratio * $scale-ratio * $scale-ratio * $scale-ratio; }
+.mr-5 { margin-right: $scale-base * $scale-ratio * $scale-ratio * $scale-ratio * $scale-ratio * $scale-ratio; }
+
+body {
+  @include responsive-font(14px, 16px);
+}
+
+
+@media (max-width: $breakpoint-md) {
+  .text-md-center {
+    text-align: center;
+  }
+}
